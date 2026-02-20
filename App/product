@@ -1,0 +1,19 @@
+import React from "react";
+import { notFound } from "next/navigation";
+import headphonesData from "../../../data/headphones.json";
+import Header from "../../../components/Header";
+import ComparisonTable from "../../../components/ComparisonTable";
+export default function ProductPage({ params }) {
+  const product=headphonesData.find(p=>p.slug===params.slug);
+  if(!product) return notFound();
+  return (
+    <div className="bg-gray-800 text-white min-h-screen">
+      <Header />
+      <main className="p-6">
+        <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
+        <p className="mb-4">الفئة: {product.category}</p>
+        <ComparisonTable alternatives={product.alternatives} badiliIndex={product.badili_index} />
+      </main>
+    </div>
+  );
+}
